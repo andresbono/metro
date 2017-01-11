@@ -1,7 +1,7 @@
 # metro
 
-[](#lang-es)
+:es:
 Información de tiempos del Metro de Sevilla
 
-[](#lang-en)
+:gb: / :us:
 Seville Metro arrival information
