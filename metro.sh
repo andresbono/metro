@@ -27,8 +27,7 @@ fi
 
 # Find station
 PATTERN="${@:-principes}" # Default 'Parque de los Príncipes'
-STATION=$(echo "$RAW" | sed 'y/áÁéÉíÍóÓúÚñ/aAeEiIoOuUn/' | \
-          grep -i "${PATTERN}" | cut -d, -f1)
+STATION=$(echo "$RAW" | sed 'y/áÁéÉíÍóÓúÚñ/aAeEiIoOuUn/' | grep -i -- "${PATTERN}" | cut -d, -f1)
 if [[ "$STATION" == "" ]]; then (>&2 echo "Nanai") ; exit 1; fi
 for s in $STATION; do
     STATION_NAME=$(echo "$RAW" | grep -e "^${s}," | cut -d, -f2)
