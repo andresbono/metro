@@ -17,6 +17,10 @@ printDest () {
     d=$(getValue "$1"); [[ "$d" ]] && printf "%s:#%2d min.\n" "$d" $(getValue "$2")
 }
 
+normalize () {
+    echo "$@" | sed 'y/áÁéÉíÍóÓúÚñ/aAeEiIoOuUn/'
+}
+
 # Request station list
 RAW="$(curl --silent http://${HOST}:${PORT}/estaciones.txt | iconv -f iso8859-1 -t utf-8)"
 
@@ -26,8 +30,8 @@ if [[ "$1" == "list" ]] || [[ "$1" == "ls" ]]; then
 fi
 
 # Find station
-PATTERN="${@:-principes}" # Default 'Parque de los Príncipes'
-STATION=$(echo "$RAW" | sed 'y/áÁéÉíÍóÓúÚñ/aAeEiIoOuUn/' | grep -i -- "${PATTERN}" | cut -d, -f1)
+PATTERN="$(normalize ${@:-principes})" # Default 'Parque de los Príncipes'
+STATION=$(normalize "$RAW" | grep -i -- "${PATTERN}" | cut -d, -f1)
 if [[ "$STATION" == "" ]]; then (>&2 echo "Nanai") ; exit 1; fi
 for s in $STATION; do
     STATION_NAME=$(echo "$RAW" | grep -e "^${s}," | cut -d, -f2)
