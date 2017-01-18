@@ -51,7 +51,7 @@ for s in $STATION; do
                  </soap:Envelope>')"
 
     # Print output
-    echo -e "\n* Estación: ${STATION_NAME}"
+    echo -e "\n* Station: ${STATION_NAME}"
     {
         echo " # "
         printDest Destino1_via_1 EstimacionTren1_via_1
